@@ -12,7 +12,10 @@ alias lss="ls -Blah"
 alias rm="mv -bt ~/.local/share/Trash/files/"
 alias rmm="/bin/rm"
 alias count="wc"
-alias ckpt="setarch x86_64 -R -L"
 
+alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias hbar="ssh kollerg@hbar.wlu.edu"
-alias sshstu="ssh condor.cs.wlu.edu"
+
+#Condor aliases
+alias sshcondor="ssh koller@condor.cs.wlu.edu"
+alias ckpt="setarch x86_64 -R -L"
