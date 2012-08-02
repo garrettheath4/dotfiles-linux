@@ -13,12 +13,27 @@ HIDDENDIRS='.vim'
 NORMALDIRS='bin
 sbin'
 
+ConfirmOverwrite () {
+	# Usage: ConfirmOverwrite FileThatExists
+	# Returns: 0 for YES
+	# (as $?): 1 for NO
+	read -p "Warning: $1 already exists. Replace? (y/n) [n]: " confirmreplace
+	if [ "$confirmreplace" != "y" ]; then
+		# Return NO
+		echo 1
+		return 1
+	else
+		# Return YES
+		echo 0
+		return 0
+	fi
+}
+
 for hf in $HIDDENFILES; do
 	if [ -f "_$hf" ]; then
-		if [ ! -e ~/"$hf" ]; then
-			ln -sv "$EXPORTS/_$hf" ~/"$hf"
-		else
-			echo "Warning:" ~/"$hf already exists"
+		if [[ ! -e ~/"$hf" || "`ConfirmOverwrite ~/$hf`" == "0" ]]; then
+			rm -rf ~/"$hf"
+			ln -sfv "$EXPORTS/_$hf" ~/"$hf"
 		fi
 	else
 		echo "Warning: _$hf does not exist"
@@ -27,10 +42,9 @@ done
 
 for hd in $HIDDENDIRS; do
 	if [ -d "_$hd" ]; then
-		if [ ! -e ~/"$hd" ]; then
-			ln -sv "$EXPORTS/_$hd" ~/"$hd"
-		else
-			echo "Warning:" ~/"$hd/ already exists"
+		if [[ ! -e ~/"$hd" || "`ConfirmOverwrite ~/$hd/`" == "0" ]]; then
+			rm -rf ~/"$hd"
+			ln -sfv "$EXPORTS/_$hd" ~/"$hd"
 		fi
 	else
 		echo "Warning: _$hd does not exist"
@@ -39,10 +53,9 @@ done
 
 for nd in $NORMALDIRS; do
 	if [ -d "$nd" ]; then
-		if [ ! -e ~/"$nd" ]; then
-			ln -sv "$EXPORTS/$nd" ~/"$nd"
-		else
-			echo "Warning:" ~/"$nd/ already exists"
+		if [[ ! -e ~/"$nd" || "`ConfirmOverwrite ~/$nd/`" == "0" ]]; then
+			rm -rf ~/"$nd"
+			ln -sfv "$EXPORTS/$nd" ~/"$nd"
 		fi
 	else
 		echo "Warning: $nd does not exist"
