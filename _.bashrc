@@ -25,8 +25,14 @@ fi
 # User specific aliases and functions
 export EDITOR="/usr/bin/vim"
 
+if [ -d ~/.local/share/Trash/files ]; then
+	alias rm="mv -bt ~/.local/share/Trash/files/"
+else
+	echo ~/.local/share/Trash/files" does not exist"
+	echo "Please move something to the trash to activate the rm alias"
+fi
+
 alias lss="ls -Blah"
-alias rm="mv -bt ~/.local/share/Trash/files/"
 alias rmm="/bin/rm"
 alias count="wc"
 
