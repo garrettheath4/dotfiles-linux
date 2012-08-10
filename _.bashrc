@@ -42,4 +42,5 @@ alias hbar="ssh kollerg@hbar.wlu.edu"
 
 #Condor aliases
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
+alias condor_log_master="vim /mnt/config/hosts/john.cs.wlu.edu/log/MasterLog"
 alias ckpt="setarch x86_64 -R -L"
