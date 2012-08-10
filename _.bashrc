@@ -34,7 +34,7 @@ fi
 
 alias lss="ls -Blah"
 alias rmm="/bin/rm"
-alias pss="ps aux | fgrep"
+alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
 
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
