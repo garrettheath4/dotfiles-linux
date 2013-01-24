@@ -40,3 +40,5 @@ alias count="wc"
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
 alias hbar="ssh kollerg@hbar.wlu.edu"
+
+alias open.pdf='evince'
