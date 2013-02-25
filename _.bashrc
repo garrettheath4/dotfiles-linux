@@ -36,6 +36,7 @@ alias lss="ls -Blah"
 alias rmm="/bin/rm"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
+alias gp='git pull; git push'
 
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
