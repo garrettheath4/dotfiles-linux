@@ -32,14 +32,19 @@ else
 	echo "Please move something to the trash to activate the rm alias"
 fi
 
+# User aliases
 alias lss="ls -Blah"
 alias rmm="/bin/rm"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
 alias gp='git pull; git push'
 
+alias open.pdf='evince'
+
+#  SSH shortcuts
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
 alias hbar="ssh kollerg@hbar.wlu.edu"
 
-alias open.pdf='evince'
+#  cd shortcuts
+alias cdi='cd ~/ImgProc'
