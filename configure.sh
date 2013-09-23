@@ -6,7 +6,8 @@
 EXPORTS="`pwd`"
 
 HIDDENFILES='.bashrc
-.vimrc'
+.vimrc
+.gvimrc'
 
 HIDDENDIRS='.vim'
 
