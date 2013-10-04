@@ -37,7 +37,6 @@ alias lss="ls -Blah"
 alias rmm="/bin/rm"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
-alias gp='git pull; git push'
 
 alias open.pdf='evince'
 
@@ -46,5 +45,9 @@ alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
 alias hbar="ssh kollerg@hbar.wlu.edu"
 
-#  cd shortcuts
-alias cdi='cd ~/ImgProc'
+#  git shortcuts
+alias gp='git pull; git push'
+alias ggp='git pull; git push'
+alias ggs='git status'
+alias gga='git add'
+alias ggc='git commit -m'
