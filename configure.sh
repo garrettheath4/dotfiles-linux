@@ -17,39 +17,51 @@ HIDDENDIRS='.vim'
 NORMALDIRS='bin
 sbin'
 
-for hf in $HIDDENFILES; do
-	if [ -f "_$hf" ]; then
-		if [ ! -e ~/"$hf" ]; then
-			ln -sv "$DOTFILES/_$hf" ~/"$hf"
+for hiddenFile in $HIDDENFILES; do
+	if [ -f "_$hiddenFile" ]; then
+		if [ ! -e ~/"$hiddenFile" ]; then
+			ln -sv "$DOTFILES/_$hiddenFile" ~/"$hiddenFile"
 		else
-			echo "Warning:" ~/"$hf already exists; leaving it"
+			if [ ! -L ~/"$hiddenFile" ]; then
+				echo "Warning: File already exists but is not a link; skipping" ~/"$hiddenFile"
+			else
+				echo "Info: File already exists and is a link (which is probably good); skipping" ~/"$hiddenFile"
+			fi
 		fi
 	else
-		echo "Warning: _$hf does not exist"
+		echo "Error: _$hiddenFile does not exist in this dotfiles repository. Please add it to the repository or remove it from the configure.sh file. Skipping."
 	fi
 done
 
-for hd in $HIDDENDIRS; do
-	if [ -d "_$hd" ]; then
-		if [ ! -e ~/"$hd" ]; then
-			ln -sv "$DOTFILES/_$hd" ~/"$hd"
+for hiddenDir in $HIDDENDIRS; do
+	if [ -d "_$hiddenDir" ]; then
+		if [ ! -e ~/"$hiddenDir" ]; then
+			ln -sv "$DOTFILES/_$hiddenDir" ~/"$hiddenDir"
 		else
-			echo "Warning:" ~/"$hd/ already exists; leaving it"
+			if [ ! -L ~/"$hiddenDir" ]; then
+				echo "Warning: Directory already exists but is not a link; skipping" ~/"$hiddenDir/"
+			else
+				echo "Info: Directory already exists and is a link (which is probably good); skipping" ~/"$hiddenDir"
+			fi
 		fi
 	else
-		echo "Warning: _$hd does not exist"
+		echo "Error: _$hiddenDir does not exist in this dotfiles repository. Please add it to the repository or remove it from the configure.sh file. Skipping."
 	fi
 done
 
-for nd in $NORMALDIRS; do
-	if [ -d "$nd" ]; then
-		if [ ! -e ~/"$nd" ]; then
-			ln -sv "$DOTFILES/$nd" ~/"$nd"
+for normalDir in $NORMALDIRS; do
+	if [ -d "$normalDir" ]; then
+		if [ ! -e ~/"$normalDir" ]; then
+			ln -sv "$DOTFILES/$normalDir" ~/"$normalDir"
 		else
-			echo "Warning:" ~/"$nd/ already exists; leaving it"
+			if [ ! -L ~/"$normalDir" ]; then
+				echo "Warning: Directory already exists but is not a link; skipping" ~/"$normalDir/"
+			else
+				echo "Info: Directory already exists and is a link (which is probably good); skipping" ~/"$normalDir"
+			fi
 		fi
 	else
-		echo "Warning: $nd does not exist"
+		echo "Error: $normalDir does not exist in this dotfiles repository. Please add it to the repository or remove it from the configure.sh file. Skipping."
 	fi
 done
 
