@@ -1,3 +1,9 @@
+# Vim specific
 *~
-_.vim/.netrwhist
 *.swp
+
+# Vim plugin specific
+_.vim/.netrwhist
+_.vim/bundle/*
+!_.vim/bundle/Vundle.vim
+
