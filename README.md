@@ -20,17 +20,17 @@ cd ~/dotfiles
 Repository Contents
 -------------------
 
-| Repository Item | Description                                                                            | Linking by `configure.sh`                           |
-|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------------|
-|`bin/`           | Contains Bash user scripts (mostly convenience scripts)                                |`~/bin` --> `dotfiles-linux/bin/`                    |
-|`sbin/`          | Contains Bash administrative scripts (mostly scripts containing `sudo`)                |`~/sbin` --> `dotfiles-linux/sbin/`                  |
-|`_.bash_profile` | Contains user Bash settings                                                            |`~/.bash_profile` --> `dotfiles-linux/_.bash_profile`|
-|`_.vim/`         | Contains Vim plugins                                                                   |`~/.vim` --> `dotfiles-linux/_.vim/`                 |
-|`_.vimrc`        | Contains Vim settings                                                                  |`~/.vimrc` --> `dotfiles-linux/_.vimrc`              |
-|`_.gitconfig`    | Contains Git configuration settings                                                    |`~/.gitconfig` --> `dotfiles-linux/_.gitconfig`      |
-|`README.md`      | This readme file                                                                       | n/a                                                 |
-|`configure.sh`   | A Bash script that creates sym links from the user's home directory to this repository | n/a                                                 |
-|`.gitignore`     | Tells Git which files to ignore in this repository if they're changed                  | n/a                                                 |
+| Repository Item | Description                                                                            | Linking by `configure.sh`                     |
+|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------|
+|`bin/`           | Contains Bash user scripts (mostly convenience scripts)                                |`~/bin` --> `dotfiles-linux/bin/`              |
+|`sbin/`          | Contains Bash administrative scripts (mostly scripts containing `sudo`)                |`~/sbin` --> `dotfiles-linux/sbin/`            |
+|`_.bashrc`       | Contains user Bash settings                                                            |`~/.bashrc` --> `dotfiles-linux/_.bashrc`      |
+|`_.vim/`         | Contains Vim plugins                                                                   |`~/.vim` --> `dotfiles-linux/_.vim/`           |
+|`_.vimrc`        | Contains Vim settings                                                                  |`~/.vimrc` --> `dotfiles-linux/_.vimrc`        |
+|`_.gitconfig`    | Contains Git configuration settings                                                    |`~/.gitconfig` --> `dotfiles-linux/_.gitconfig`|
+|`README.md`      | This readme file                                                                       | n/a                                           |
+|`configure.sh`   | A Bash script that creates sym links from the user's home directory to this repository | n/a                                           |
+|`.gitignore`     | Tells Git which files to ignore in this repository if they're changed                  | n/a                                           |
 
 Future Tasks
 ------------
