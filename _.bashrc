@@ -1,4 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(1) for non-login shells
+# (e.g. terminal emulator GUI apps or bash sub-shells)
 
 ifDistIsThenSource () {
 	if [ "$#" -ne 2 -o -z "$1" -o -z "$2" ]; then
@@ -6,12 +7,13 @@ ifDistIsThenSource () {
 		echo "Usage: ifDistIsThenSource: Ubuntu ~/.bashrc.os.ubuntu" 1>&2
 		return 1
 	fi
-	if [ ! -r "$2" ]; then
-		echo "ERROR: OS bootstrap script $2 is not readable" 1>&2
-		return 2
-	fi
 	if ( lsb_release -i | fgrep "$1" 1>/dev/null 2>&1 ); then
-		source "$2"
+		if [ ! -r "$2" ]; then
+			echo "ERROR: OS bootstrap script $2 is not readable" 1>&2
+			return 2
+		else
+			source "$2"
+		fi
 	fi
 }
 
@@ -20,12 +22,12 @@ ifDistIsThenSource "Raspbian" ~/.bashrc.os.raspbian
 
 # Source system's global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+	source /etc/bashrc
 fi
 
 # Source user's local definitions
-if [ -f ~/.bashrc.local -a -x ~/.bashrc.local ]; then
-	. ~/.bashrc.local
+if [ -f ~/.bashrc.local ]; then
+	source ~/.bashrc.local
 fi
 
 # Enable color support of ls and also add handy aliases
@@ -45,6 +47,8 @@ fi
 
 # User aliases
 alias lss="ls -Blah"
+alias lsr='ls -alt'
+alias lsrr='ls -alt | head -n15'
 alias rmm="/bin/rm"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
