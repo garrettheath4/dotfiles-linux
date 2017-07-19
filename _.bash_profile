@@ -3,7 +3,7 @@
 
 if [ -f ~/.bashrc ]; then
 	# shellcheck disable=SC1090
-	source ~/.bashrc
+	. ~/.bashrc
 fi
 
 # Tmux-specific commands (only run if Tmux is installed)

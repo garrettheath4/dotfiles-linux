@@ -18,13 +18,13 @@ ifDistIsThenSource () {
 		echo "Usage: ifDistIsThenSource: Ubuntu ~/.bashrc.os.ubuntu" 1>&2
 		return 1
 	fi
-	if ( which lsb_release 1>/dev/null 2>&1 && lsb_release -i | fgrep "$1" 1>/dev/null 2>&1 ); then
+	if ( which lsb_release 1>/dev/null 2>&1 && lsb_release -i | grep -F "$1" 1>/dev/null 2>&1 ); then
 		if [ ! -r "$2" ]; then
 			echo "ERROR: OS bootstrap script $2 is not readable" 1>&2
 			return 2
 		else
 			# shellcheck disable=SC1090
-			source "$2"
+			. "$2"
 		fi
 	fi
 }
@@ -35,13 +35,13 @@ ifDistIsThenSource "Raspbian" ~/.bashrc.os.raspbian
 # Source system's global definitions
 if [ -f /etc/bashrc ]; then
 	# shellcheck disable=SC1091
-	source /etc/bashrc
+	. /etc/bashrc
 fi
 
 # Source user's local definitions
 if [ -f ~/.bashrc.local ]; then
 	# shellcheck disable=SC1090
-	source ~/.bashrc.local
+	. ~/.bashrc.local
 fi
 
 # Enable color support of ls and also add handy aliases
