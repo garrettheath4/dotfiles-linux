@@ -2,8 +2,7 @@
 # (e.g. login via ssh or direct console login without GUI)
 
 if [ -f ~/.bashrc ]; then
-	# shellcheck disable=SC1091
-	# shellcheck source=.bashrc
+	# shellcheck disable=SC1090
 	source ~/.bashrc
 fi
 

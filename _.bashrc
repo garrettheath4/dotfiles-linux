@@ -13,16 +13,17 @@ ResetColorsPS="\[$(tput sgr0)\]"
 export PS1="${YellowBgPS}${BlackFgPS}[\u@\h:\W]${ResetColorsPS}\$ "
 
 ifDistIsThenSource () {
-	if [ "$#" -ne 2 -o -z "$1" -o -z "$2" ]; then
+	if [ "$#" -ne 2 ] || [ -z "$1" ] || [ -z "$2" ]; then
 		echo "ERROR: ifDistIsThenSource needs two non-empty args" 1>&2
 		echo "Usage: ifDistIsThenSource: Ubuntu ~/.bashrc.os.ubuntu" 1>&2
 		return 1
 	fi
-	if ( which lsb_release 2>/dev/null && lsb_release -i | fgrep "$1" 1>/dev/null 2>&1 ); then
+	if ( which lsb_release 1>/dev/null 2>&1 && lsb_release -i | fgrep "$1" 1>/dev/null 2>&1 ); then
 		if [ ! -r "$2" ]; then
 			echo "ERROR: OS bootstrap script $2 is not readable" 1>&2
 			return 2
 		else
+			# shellcheck disable=SC1090
 			source "$2"
 		fi
 	fi
@@ -33,22 +34,29 @@ ifDistIsThenSource "Raspbian" ~/.bashrc.os.raspbian
 
 # Source system's global definitions
 if [ -f /etc/bashrc ]; then
+	# shellcheck disable=SC1091
 	source /etc/bashrc
 fi
 
 # Source user's local definitions
 if [ -f ~/.bashrc.local ]; then
+	# shellcheck disable=SC1090
 	source ~/.bashrc.local
 fi
 
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+	if [ -r ~/.dircolors ]; then
+		eval "$(dircolors -b ~/.dircolors)"
+	else
+		eval "$(dircolors -b)"
+	fi
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+	alias ls='ls --color=auto'
+
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
 fi
 
 # User specific aliases and functions
