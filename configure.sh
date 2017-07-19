@@ -7,6 +7,7 @@
 DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 HIDDENFILES='.bashrc
+.bash_profile
 .git-completion.bash
 .vimrc
 .gvimrc
@@ -64,4 +65,6 @@ for normalDir in $NORMALDIRS; do
 		echo "Error: $normalDir does not exist in this dotfiles repository. Please add it to the repository or remove it from the configure.sh file. Skipping."
 	fi
 done
+
+git submodule init && git submodule update
 
