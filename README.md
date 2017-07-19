@@ -2,37 +2,40 @@ Linux Personal Profile Dotfiles
 ===============================
 
 This project contains all of the configuration files I use for all of my
-Linux-based logins. When these files are moved to their appropriate places
-(where applicable), my standard scripts and settings will be set on that
-computer, such as important environment variables, terminal aliases, and
-scripts.
+Linux-based logins. When these files are linked to their appropriate places
+(using the `configure.sh` install script), my standard settings will be set up
+on that computer. These settings include important environment variables,
+terminal aliases, and scripts.
 
 Installation
 ------------
-To install this project:
+To install this project, run the following commands:
 
 ```
 git clone https://github.com/garrettheath4/dotfiles-linux.git ~/dotfiles
 cd ~/dotfiles
-git submodule init
-git submodule update
+git submodule init && git submodule update
 ./configure.sh
 ```
 
 Repository Contents
 -------------------
 
-| Repository Item | Description                                                                            | Linking by `configure.sh`                     |
-|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------|
-|`bin/`           | Contains Bash user scripts (mostly convenience scripts)                                |`~/bin` --> `dotfiles-linux/bin/`              |
-|`sbin/`          | Contains Bash administrative scripts (mostly scripts containing `sudo`)                |`~/sbin` --> `dotfiles-linux/sbin/`            |
-|`_.bashrc`       | Contains user Bash settings                                                            |`~/.bashrc` --> `dotfiles-linux/_.bashrc`      |
-|`_.vim/`         | Contains Vim plugins                                                                   |`~/.vim` --> `dotfiles-linux/_.vim/`           |
-|`_.vimrc`        | Contains Vim settings                                                                  |`~/.vimrc` --> `dotfiles-linux/_.vimrc`        |
-|`_.gitconfig`    | Contains Git configuration settings                                                    |`~/.gitconfig` --> `dotfiles-linux/_.gitconfig`|
-|`README.md`      | This readme file                                                                       | n/a                                           |
-|`configure.sh`   | A Bash script that creates sym links from the user's home directory to this repository | n/a                                           |
-|`.gitignore`     | Tells Git which files to ignore in this repository if they're changed                  | n/a                                           |
+| Repository Item         | Description                                                                                                 | Linking by `configure.sh`                                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `configure.sh`          | A Bash script that creates links from the user's home directory to this repository                          | none (run `configure.sh` once to create the links below             |
+| `_.bashrc`              | Contains user Bash settings (runs when non-login shells are started, e.g. terminal emulators and subshells) | `~/.bashrc` --> `dotfiles-linux/_.bashrc`                           |
+| `_.bash_profile`        | Contains user Bash settings (runs when login shells are started, e.g. direct console login or ssh)          | `~/.bash_profile` --> `dotfiles-linux/_.bash_profile`               |
+| `_.tmux.conf`           | Contains Tmux configuration settings (Tmux is launched every time `.bash_profile` is triggered)             | `~/.tmux.conf` --> `dotfiles-linux/_.tmux.conf`                     |
+| `_.git-completion.bash` | Allows tab-completion of Git commands in Bash                                                               | `~/.git-completion.bash` --> `dotfiles-linux/_.git-completion.bash` |
+| `bin/`                  | Contains Bash user scripts (mostly convenience scripts)                                                     | `~/bin` --> `dotfiles-linux/bin/`                                   |
+| `sbin/`                 | Contains Bash administrative scripts (mostly scripts containing `sudo`)                                     | `~/sbin` --> `dotfiles-linux/sbin/`                                 |
+| `_.vimrc`               | Contains Vim startup settings                                                                               | `~/.vimrc` --> `dotfiles-linux/_.vimrc`                             |
+| `_.gvimrc`              | Contains Vim startup settings when Vim is started in graphical (GUI) mode `gvim`                            | `~/.gvimrc` --> `dotfiles-linux/_.gvimrc`                           |
+| `_.vim/`                | Contains Vim plugins (mostly just the Vundle plugin manager stored as a Git submodule)                      | `~/.vim` --> `dotfiles-linux/_.vim/`                                |
+| `README.md`             | This README file                                                                                            | none                                                                |
+| `.gitignore`            | Tells Git which files to ignore in this repository if they're changed                                       | none                                                                |
+| `.gitmodules`           | Do not edit this file directly; Git uses it to keep track of Git submodules in this repo                    | `git submodule init && git submodule update`                        |
 
 Future Tasks
 ------------
