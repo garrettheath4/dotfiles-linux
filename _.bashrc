@@ -52,6 +52,7 @@ alias lsrr='ls -alt | head -n15'
 alias rmm="/bin/rm"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
+if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
 
 ## SSH shortcuts
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
