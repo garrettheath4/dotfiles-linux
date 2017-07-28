@@ -2,28 +2,17 @@
 # (e.g. terminal emulator GUI apps or bash sub-shells)
 
 # .bashrc sourcing order of operations:
-# 1) Source system-level script (if any) ----- /etc/bashrc
-# 2) Set PS1 bash prompt and user aliases ---- .bashrc       (this script; from dotfiles)
-# 3) Source OS-specific script (if any) ------ .bashrc.os.*  (from dotfiles)
-# 4) Source machine-specific script (if any) - .bashrc.local
+# 1) Set PS1 bash prompt --------------------- .bash_profile (from dotfiles)
+# 2) Source system-level script (if any) ----- /etc/bashrc
+# 3) Set bash user aliases ------------------- .bashrc       (this script; from dotfiles)
+# 4) Source OS-specific script (if any) ------ .bashrc.os.*  (from dotfiles)
+# 5) Source machine-specific script (if any) - .bashrc.local
 
 # Source system's global definitions
 if [ -f /etc/bashrc ]; then
 	# shellcheck disable=SC1091
 	. /etc/bashrc
 fi
-
-# Set a custom color-enabled Bash command prompt string
-# (the \[ and \] in YellowBgPS, BlackFgPS, and ResetColorsPS indicate that those characters are
-# unprintable and to not include them in the string width counting)
-# Bash Prompt Customization: https://wiki.archlinux.org/index.php/Bash/Prompt_customization
-# Terminal Codes intro: http://wiki.bash-hackers.org/scripting/terminalcodes
-# Original PS1="[\u@\h \W]\$ "
-YellowBgPS="\[$(tput setab 3)\]"
-BlackFgPS="\[$(tput setaf 0)\]"
-ResetColorsPS="\[$(tput sgr0)\]"
-export PS1="${YellowBgPS}${BlackFgPS}[\u@\h:\W]${ResetColorsPS}\$ "
-
 
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
