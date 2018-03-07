@@ -29,9 +29,9 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
-# User specific aliases and functions
-if [ -x "/usr/bin/vim" ]; then
-	export EDITOR="/usr/bin/vim"
+# Set the editor to Vim if it is installed
+if which vim >/dev/null 2>&1; then
+	export EDITOR=$(which vim)
 fi
 
 # User aliases
@@ -39,6 +39,7 @@ alias lss="ls -Blah"
 alias lsr='ls -alt'
 alias lsrr='ls -alt | head -n15'
 alias rmm="/bin/rm"
+alias woman="man"
 alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
 if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
@@ -46,9 +47,8 @@ if man which | grep -F read-alias >/dev/null; then alias which='alias | command 
 ## SSH shortcuts
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
 alias sshcondor="ssh koller@condor.cs.wlu.edu"
-alias hbar="ssh kollerg@hbar.wlu.edu"
 
-## git shortcuts
+## Git shortcuts
 alias ggp='git pull && git push'
 alias ggb='git branch'
 alias ggs='git status'
@@ -82,3 +82,73 @@ if [ -f ~/.bashrc.local ]; then
 	# shellcheck disable=SC1090
 	. ~/.bashrc.local
 fi
+
+# Tmux-specific commands (only run if Tmux is installed)
+if which tmux >/dev/null 2>&1; then
+	# Automatically start Tmux session if this is an iTerm2 window with the Hotkey profile
+	if [ "$ITERM_PROFILE" = "Hotkey" ] || [ "$ITERM_PROFILE" = "Hotkey Window" ] && [ -z "${TMUX+defined}" ]; then
+		if (tmux has-session 2>/dev/null); then
+			tmux attach
+		else
+			tmux
+		fi
+	fi
+
+	# If this is a TMUX session, automatically run some commands
+	if [ -n "${TMUX}" ]; then
+		# TMUX_PANE=%0
+		if [ "$TMUX_PANE" = '%0' ]; then
+			tmux rename-window 'Local'
+		fi
+
+		# From article: https://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/
+		# Source Gist:  https://gist.github.com/florianbeer/ee02c149a7e25f643491
+		ssh() {
+			if [ "$(ps -p "$(ps -p $$ -o ppid=)" -o comm=)" = "tmux" ]; then
+				if [ "$(tmux display-message -p '#W')" = "bash" ]; then
+					# Tmux window doesn't have a custom name already, so proceed with auto-rename
+					GrayTxt="$(tput setaf 0)"
+					ResetColors="$(tput sgr0)"
+					echo "${GrayTxt}Renaming Tmux window to match SSH session${ResetColors}" 1>&2
+					windowName=$(echo "$1" | cut -d '.' -f 1)
+					#TODO: Extract this known-server substitution into an optional .ssh_server_names.local definition file
+					case "$windowName" in
+						drlvapiapp01) windowName='Test_API'; ;;
+						prlvapiapp01) windowName='PROD_API'; ;;
+						drlvmtlapp01) windowName='MTool-Web'; ;;
+					esac
+					tmux rename-window "$windowName"
+					#tmux set-window-option automatic-rename "on" 1>/dev/null
+				else
+					: # Tmux window has a custom name already, so don't rename it
+				fi
+			else
+				echo "WARNING: Cannot rename the Tmux session because this is not a Tmux session.  This ssh() funcion shouldn't be defined.  Check your .bash_profile" 1>&2
+			fi
+			command ssh "$@"
+		}
+	fi
+fi
+
+cd_tmux() {
+	# Usage: cd_tmux <DirToChangeTo> <NewTmuxWindowName>
+	if [ "$#" -lt 2 ]; then
+		echo 'Usage: cd_tmux <DirToChangeTo> <NewTmuxWindowName>'
+		exit 1
+	fi
+	NewDir="$1"
+	shift
+	# Remaining arg(s) is new window name
+	WindowName="$*"
+	if which tmux >/dev/null 2>&1 && [ "$(ps -p "$(ps -p $$ -o ppid=)" -o comm=)" = "tmux" ] && [ "$(tmux display-message -p '#W')" = "bash" ]; then
+		# Tmux is installed && this is a running Tmux session && the Tmux window has the default (non-custom) name
+		GrayTxt="$(tput setaf 0)"
+		ResetColors="$(tput sgr0)"
+		echo "${GrayTxt}Renaming Tmux window to match current directory${ResetColors}" 1>&2
+		tmux rename-window "$WindowName"
+	fi
+	# shellcheck disable=SC2164
+	cd "$NewDir"
+	pwd
+}
+
