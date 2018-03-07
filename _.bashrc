@@ -32,6 +32,7 @@ fi
 # Set the editor to Vim if it is installed
 if which vim >/dev/null 2>&1; then
 	export EDITOR=$(which vim)
+	alias vimro="vim -RMn"
 fi
 
 # User aliases
