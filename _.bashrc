@@ -90,6 +90,11 @@ if which tmux >/dev/null 2>&1; then
 		else
 			tmux
 		fi
+		if [ "$?" -eq 0 ]; then
+			read -n 1 -s -r -p "Tmux exited cleanly. Press any key to logout... "
+			echo
+			exit
+		fi
 	fi
 
 	# If this is a TMUX session, automatically run some commands

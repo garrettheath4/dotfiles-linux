@@ -17,20 +17,3 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
-# Tmux-specific commands (only run if Tmux is installed)
-if which tmux >/dev/null 2>&1; then
-	# Automatically start Tmux session (or connect to an existing one) if this is not already a Tmux session
-	if [ -z "${TMUX+defined}" ]; then
-		if (tmux has-session 2>/dev/null); then
-			tmux attach
-		else
-			tmux
-		fi
-		if [ "$?" -eq 0 ]; then
-			read -n 1 -s -r -p "Tmux exited cleanly. Press any key to logout... "
-			echo
-			exit
-		fi
-	fi
-fi
-
