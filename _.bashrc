@@ -156,3 +156,5 @@ cd_tmux() {
 	pwd
 }
 
+
+# vim: set ft=sh:
