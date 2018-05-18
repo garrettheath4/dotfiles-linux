@@ -41,7 +41,7 @@ alias lsr='ls -alt'
 alias lsrr='ls -alt | head -n15'
 alias rmm="/bin/rm"
 alias woman="man"
-alias pss="ps aux | fgrep -v fgrep | fgrep"
+alias pss="ps aux | head -n1; ps aux | fgrep -v grep | fgrep"
 alias count="wc"
 if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
 
