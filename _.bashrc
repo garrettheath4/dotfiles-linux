@@ -40,9 +40,10 @@ alias lss="ls -Blah"
 alias lsr='ls -alt'
 alias lsrr='ls -alt | head -n15'
 alias rmm="/bin/rm"
+alias pss="ps aux | head -n1; ps aux | fgrep -v grep | fgrep"
 alias woman="man"
-alias pss="ps aux | fgrep -v fgrep | fgrep"
 alias count="wc"
+alias reload="source ~/.bashrc"
 if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
 
 ## SSH shortcuts
