@@ -88,10 +88,15 @@ if which tmux >/dev/null 2>&1; then
 	# Automatically start Tmux session if this is an iTerm2 window with the Hotkey profile
 	if [ -z "${TMUX+defined}" ]; then
 		if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-			tmux new-session -A -n Main -s Remote
+			SessionName="Remote"
 		else
-			tmux new-session -A -n Main -s Local
+			SessionName="Local"
 		fi
+
+		tmux new-session -AdD -n Main -s "$SessionName"
+		tmux new-window -d -c ~/dotfiles -n dotfiles-update 'git fetch; if [ $(git rev-parse @) != $(git rev-parse @{u}) ]; then echo Run '"\'git pull\'"' to update your dotfiles; sleep 120; fi'
+		tmux attach
+
 		if [ "$?" -eq 0 ]; then
 			read -n 1 -s -r -p "Tmux exited cleanly. Press any key to logout... "
 			echo
