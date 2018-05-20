@@ -87,25 +87,18 @@ fi
 if which tmux >/dev/null 2>&1; then
 	# Automatically start Tmux session if this is an iTerm2 window with the Hotkey profile
 	if [ -z "${TMUX+defined}" ]; then
-		if (tmux has-session 2>/dev/null); then
-			tmux attach
+		if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+			tmux new-session -A -n Main -s Remote
 		else
-			tmux
+			tmux new-session -A -n Main -s Local
 		fi
 		if [ "$?" -eq 0 ]; then
 			read -n 1 -s -r -p "Tmux exited cleanly. Press any key to logout... "
 			echo
 			exit
 		fi
-	fi
-
-	# If this is a TMUX session, automatically run some commands
-	if [ -n "${TMUX}" ]; then
-		# TMUX_PANE=%0
-		if [ "$TMUX_PANE" = '%0' ]; then
-			tmux rename-window 'Local'
-		fi
-
+	else
+		# If this is a TMUX session, automatically run some commands
 		# From article: https://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/
 		# Source Gist:  https://gist.github.com/florianbeer/ee02c149a7e25f643491
 		ssh() {
