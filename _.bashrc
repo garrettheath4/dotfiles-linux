@@ -8,6 +8,13 @@
 # 4) Source OS-specific script (if any) ------ .bashrc.os.*  (from dotfiles)
 # 5) Source machine-specific script (if any) - .bashrc.local
 
+# If not running interactively (e.g. scp), don't do anything
+# Source; https://stackoverflow.com/a/40956958/1360295
+case $- in
+	*i*) ;;
+	*) return;;
+esac
+
 # Source system's global definitions
 if [ -f /etc/bashrc ]; then
 	# shellcheck disable=SC1091
