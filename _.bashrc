@@ -44,9 +44,9 @@ if which vim >/dev/null 2>&1; then
 fi
 
 # User aliases
-alias lss="ls -Blah"
-alias lsr='ls -alt'
-alias lsrr='ls -alt | head -n15'
+alias lss="ls -alhB"
+alias lsr='ls -alht'
+alias lsrr='lsr | head -n15'
 alias rmm="/bin/rm"
 alias pss="ps aux | head -n1; ps aux | fgrep -v grep | fgrep"
 alias woman="man"
