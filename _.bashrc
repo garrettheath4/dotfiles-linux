@@ -45,21 +45,21 @@ fi
 
 # User aliases
 if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
-alias lss="ls -alhB"
+alias lss='ls -alhB'
 alias lsr='ls -alht'
 alias lsrr='lsr | head -n15'
-alias rmm="/bin/rm"
-alias pss="ps aux | head -n1; ps aux | fgrep -v grep | fgrep"
-alias woman="man"
-alias count="wc"
-alias reload="source ~/.bashrc"
-# If youtube-dl is installed be sure to also install ffmpeg with 'brew install ffmpeg'
+alias rmm='/bin/rm'
+alias pss='ps aux | head -n1; ps aux | fgrep -v grep | fgrep'
+alias woman='man'
+alias count='wc'
+alias reload='source ~/.bashrc'
+# If youtube-dl is installed be sure to also install ffmpeg with 'apt install ffmpeg'
 # Alias source: https://github.com/rg3/youtube-dl/issues/8017#issuecomment-167382308
-alias youtube-dl='youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+alias youtube-dl='echo "youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"; youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
 
 ## SSH shortcuts
-alias sshstu="ssh kollerg@condor.cs.wlu.edu"
-alias sshcondor="ssh koller@condor.cs.wlu.edu"
+alias sshstu='ssh kollerg@condor.cs.wlu.edu'
+alias sshcondor='ssh koller@condor.cs.wlu.edu'
 
 ## Git shortcuts
 alias ggp='(git pull && test "$(git for-each-ref --format="%(if)%(HEAD)%(then)%(push:track)%(end)" refs/heads)" != "" && git push || echo "Nothing to push on this branch.") && test "$(git for-each-ref --format="%(push:track)" refs/heads)" != "" && (echo "Other branches:"; ggu)'
