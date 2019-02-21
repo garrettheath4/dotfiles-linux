@@ -44,6 +44,7 @@ if which vim >/dev/null 2>&1; then
 fi
 
 # User aliases
+if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
 alias lss="ls -alhB"
 alias lsr='ls -alht'
 alias lsrr='lsr | head -n15'
@@ -52,7 +53,9 @@ alias pss="ps aux | head -n1; ps aux | fgrep -v grep | fgrep"
 alias woman="man"
 alias count="wc"
 alias reload="source ~/.bashrc"
-if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
+# If youtube-dl is installed be sure to also install ffmpeg with 'brew install ffmpeg'
+# Alias source: https://github.com/rg3/youtube-dl/issues/8017#issuecomment-167382308
+alias youtube-dl='youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
 
 ## SSH shortcuts
 alias sshstu="ssh kollerg@condor.cs.wlu.edu"
