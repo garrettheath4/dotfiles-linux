@@ -17,5 +17,9 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
+if [ -f /etc/motd ]; then
+	cat /etc/motd
+fi
+
 
 # vim: set ft=sh:
