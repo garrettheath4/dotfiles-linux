@@ -112,10 +112,12 @@ if which tmux >/dev/null 2>&1; then
 			tmux new-window -d -n INSTALL-GIT 'echo Git does not appear to be installed. Please install it to enable update checking for dotfiles.'
 		fi
 		if tmux attach; then
-			# shellcheck disable=SC2039
 			read -n 1 -s -r -p "Tmux exited cleanly. Press any key to logout... "
 			echo
 			exit
+		else
+			read -n 1 -s -r -p "Tmux exited with code $? "
+			echo
 		fi
 	else
 		# If this is a TMUX session, automatically run some commands
