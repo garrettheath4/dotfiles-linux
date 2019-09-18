@@ -74,7 +74,9 @@ vim +PluginInstall +qall
 git config --global push.default simple
 git config --global diff.tool vimdiff
 git config --global color.ui auto
-echo 'Be sure to run the following commands to finish configuring Git:'
-echo '  git config --global user.name "Garrett Heath Koller"'
-echo '  git config --global user.email "garrettheath4@gmail.com"'
+if [[ $(git config --global user.name) != Garrett* ]]; then
+	echo 'Be sure to run the following commands to finish configuring Git:'
+	echo '  git config --global user.name "Garrett Heath Koller"'
+	echo '  git config --global user.email "garrettheath4@gmail.com"'
+fi
 
