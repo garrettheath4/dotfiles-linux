@@ -20,6 +20,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular'
 " vim-json: #MakeJsonPrettyAgain
 Plugin 'elzr/vim-json'
+" vim-jsbeautify: #MakeJavaScriptPrettyAgain
+" Usage: :call JsBeautify()
+Plugin 'maksimr/vim-jsbeautify'
 " xml.vim: #MakeXmlPrettyAgain
 Plugin 'othree/xml.vim'
 " AnsiEsc.vim: #MakeANSIEscapeSequencesPrettyAgain
@@ -67,6 +70,7 @@ set statusline+=%*
 set statusline+=%=%-14.(%l,%c%V%)\ %P
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 if has("multi_byte")
@@ -78,6 +82,9 @@ else
 endif
 " Check the syntax with Syntastic using the shortcut <leader>c (usually \c)
 nmap <leader>c :SyntasticCheck<CR>
+nmap <leader>s :SyntasticToggleMode<CR>
+" Disable Syntastic auto checking for Java files
+let g:syntastic_mode_map = { "mode": "active", "active_filetypes": [], "passive_filetypes": ["java"] }
 
 " General Vim configurations
 
@@ -178,5 +185,5 @@ set mls=3
 if has("gui_running") && !exists("mvim")
   set acd
   set lines=85
-  set co=85
+  set columns=85
 endif
