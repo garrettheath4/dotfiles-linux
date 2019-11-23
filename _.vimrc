@@ -23,6 +23,8 @@ Plugin 'elzr/vim-json'
 " vim-jsbeautify: #MakeJavaScriptPrettyAgain
 " Usage: :call JsBeautify()
 Plugin 'maksimr/vim-jsbeautify'
+" ale: Python linting in realtime
+Plugin 'dense-analysis/ale'
 " xml.vim: #MakeXmlPrettyAgain
 Plugin 'othree/xml.vim'
 " AnsiEsc.vim: #MakeANSIEscapeSequencesPrettyAgain
