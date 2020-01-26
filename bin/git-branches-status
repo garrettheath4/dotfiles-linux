@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+usage () {
+	echo "Usage: $0           -- prints status of all local branches"
+	echo "   OR: $0 <branch>  -- pulls updates from <branch> without checking it out"
+}
+
+if [ "$#" -eq 0 ]; then
+	if [ "$(git for-each-ref --format="%(push:track)" refs/heads)" != '' ]; then
+		git for-each-ref --format='%(align:15,right)%(push:track)%(end) %(refname:lstrip=2)' refs/heads
+	else
+		echo "All branches up-to-date with remote repo"
+		echo "Current branch: $(git branch --show-current)"
+	fi
+elif [ "$#" -eq 1 ]; then
+	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+		usage
+		exit 1
+	fi
+	git fetch origin "$1:$1"
+else
+	usage
+	exit 2
+fi
