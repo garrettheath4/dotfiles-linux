@@ -102,7 +102,6 @@ fi
 
 # User aliases
 if man which | grep -F read-alias >/dev/null; then alias which='alias | command which --tty-only --read-alias --show-dot --show-tilde'; fi
-alias ls='ls -G'
 alias lss='ls -alhB'
 alias lsr='ls -alht'
 alias lsrr='lsr | head -n15'
