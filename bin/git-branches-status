@@ -10,7 +10,8 @@ if [ "$#" -eq 0 ]; then
 		git for-each-ref --format='%(align:15,right)%(push:track)%(end) %(refname:lstrip=2)' refs/heads
 	else
 		echo "All branches up-to-date with remote repo"
-		echo "Current branch: $(git branch --show-current)"
+		# Git 2.22+ only: git branch --show-current
+		echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
 	fi
 elif [ "$#" -eq 1 ]; then
 	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
