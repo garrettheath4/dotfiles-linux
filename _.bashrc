@@ -44,6 +44,8 @@ if command -v tmux >/dev/null 2>&1; then
 		if [ "$ITERM_PROFILE" = "Hotkey" ] || [ "$ITERM_PROFILE" = "Hotkey Window" ]; then
 			# This is an iTerm2 window with the Hotkey profile
 			tmux-name
+		else
+			echo "==> Don't forget to run tmux-name <=="
 		fi
 	else
 		# This IS a Tmux session

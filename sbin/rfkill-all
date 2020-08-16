@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+sudo rfkill block wifi
+sudo rfkill block bluetooth
