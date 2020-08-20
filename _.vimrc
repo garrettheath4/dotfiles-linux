@@ -160,32 +160,30 @@ endif " has("autocmd")
 " g:netrw_sort_sequence = [\/]$,\<core\%(\.\d\+\)\=\>,\.c$,\.cpp$,\.h$,\.txt$,\.in$,\.out$,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$
 
 
-" ai=Auto Indent, si=Smart Indent, ci=C code indent, pi=Preserve Indent
-set ts=5
-set sw=5
-set ai
-set si
-set ci
-set pi
-" is=Incremental Search
-set is
-set so=2
-set ru
-set ex
+set tabstop=5
+set shiftwidth=5
+set autoindent
+set smartindent
+set copyindent
+set preserveindent
+set nojoinspaces    " insert 1 instead of 2 spaces b/w sentences on Ctrl+j
+set incsearch
+set scrolloff=2
+set ruler
+set exrc
 set backspace=2
-set nu
-" list=Show formatting characters
-set list
+set number
+set list            " show formatting characters
 " Show <Tab> as >-- and trailing spaces as ~
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 " Set color of eol, extends, and precedes to black (visible only when editing line)
 highlight NonText    ctermfg=0 guifg=Black
 " Set color of nbsp, tab, and trail to dark gray
 highlight SpecialKey ctermfg=8 guifg=DarkGray
-set ml
-set mls=3
+set modeline
+set modelines=3
 if has("gui_running") && !exists("mvim")
-  set acd
+  set autochdir
   set lines=85
   set columns=85
 endif
