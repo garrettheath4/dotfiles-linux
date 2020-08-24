@@ -139,7 +139,7 @@ ifDistIsThenSource () {
 		echo "Usage: ifDistIsThenSource: Ubuntu ~/.bashrc.os.ubuntu" 1>&2
 		return 1
 	fi
-	if ( which lsb_release 1>/dev/null 2>&1 && lsb_release -i | grep -F "$1" 1>/dev/null 2>&1 ); then
+	if ( which lsb_release 1>/dev/null 2>&1 && lsb_release -i | grep -F "$1" 1>/dev/null 2>&1 ) || grep -F "$1" /etc/os-release; then
 		if [ -r "$2" ]; then
 			# shellcheck disable=SC1090
 			. "$2"
