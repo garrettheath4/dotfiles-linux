@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+if [ -z "$PUSHOVER_USER_KEY" ]; then
+	echo -e 'ERROR: PUSHOVER_USER_KEY environment variable not defined \a'
+	echo    '     : Get it from your account at pushover.net and use it in the following command to add it into your .profile file:'
+	echo    '     :   echo "export PUSHOVER_USER_KEY=<your-user-key-here>" >> .profile'
+	exit 3
+fi
+
+if [ -z "$PUSHOVER_APP_TOKEN" ]; then
+	echo -e 'ERROR: PUSHOVER_APP_TOKEN environment variable not defined \a'
+	echo    '     : Create an Application/API token from your account at pushover.net and use it in the following command to add it into your .profile file:'
+	echo    '     :   echo "export PUSHOVER_APP_TOKEN=<your-app-token-here>" >> .profile'
+	exit 2
+fi
+
+if [ "$#" -eq 0 ]; then
+	echo -e "Usage: $(basename "$0") Push message text here."
+	exit 1
+fi
+
+message="$*"
+
+# Print the message here and ring the terminal bell too, just in case
+echo -en "📲 $message\n--> \a"
+
+curl -s \
+  --form-string "token=$PUSHOVER_APP_TOKEN" \
+  --form-string "user=$PUSHOVER_USER_KEY" \
+  --form-string "message=$message" \
+  https://api.pushover.net/1/messages.json
+
+exit_code=$?
+
+echo
+
+exit $exit_code
+
