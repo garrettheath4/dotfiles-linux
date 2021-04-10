@@ -114,6 +114,7 @@ alias woman='man'
 alias reverse='tail -r'
 alias reload='source ~/.bashrc'
 alias incognito='unset HISTFILE'
+alias ports='ss -tulp'
 # If youtube-dl is installed be sure to also install ffmpeg with 'apt install ffmpeg'
 # Alias source: https://github.com/rg3/youtube-dl/issues/8017#issuecomment-167382308
 alias youtube-dl='echo "youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"; youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
