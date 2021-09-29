@@ -88,11 +88,11 @@ if [ -x /usr/bin/dircolors ]; then
 		eval "$(dircolors -b)"
 	fi
 
-	alias ls='ls --color=auto'
+	alias ls='ls --color=always'
 
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
+	alias grep='grep --color=always'
+	alias fgrep='fgrep --color=always'
+	alias egrep='egrep --color=always'
 fi
 
 # Set the editor to Vim if it is installed
@@ -115,10 +115,6 @@ alias reverse='tail -r'
 alias reload='source ~/.bashrc'
 alias incognito='unset HISTFILE'
 alias ports='ss -tulp'
-# If youtube-dl is installed be sure to also install ffmpeg with 'apt install ffmpeg'
-# Alias source: https://github.com/rg3/youtube-dl/issues/8017#issuecomment-167382308
-alias youtube-dl='echo "youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"; youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
-alias docker-clean='docker rm $(docker ps -a -q); docker rmi $(docker images -q)'
 
 ## Git shortcuts
 alias ggp='git-pull-push'
@@ -132,7 +128,12 @@ alias ggc='git commit -m'
 alias ggl='git log --pretty=oneline --abbrev-commit'
 
 ## Other terminal shortcuts
+alias ag='ag --color'
 alias mvnt='mvn dependency:tree -Dverbose | vim "+set bt=nofile" -'
+alias docker-clean='docker rm $(docker ps -a -q); docker rmi $(docker images -q)'
+# If youtube-dl is installed be sure to also install ffmpeg with 'apt install ffmpeg'
+# Alias source: https://github.com/rg3/youtube-dl/issues/8017#issuecomment-167382308
+alias youtube-dl='echo "youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"; youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
 
 ifDistIsThenSource () {
 	if [ "$#" -ne 2 ] || [ -z "$1" ] || [ -z "$2" ]; then
