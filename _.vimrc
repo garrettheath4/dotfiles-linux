@@ -29,8 +29,6 @@ Plugin 'dense-analysis/ale'
 Plugin 'othree/xml.vim'
 " AnsiEsc.vim: #MakeANSIEscapeSequencesPrettyAgain
 Plugin 'AnsiEsc.vim'
-" syntastic: Syntax checking plugin (includes ShellCheck support for scripts)
-Plugin 'scrooloose/syntastic'
 " Coding language-specific plugins: vim-scala
 Plugin 'derekwyatt/vim-scala'
 " vim-fugitive: Git wrapper
