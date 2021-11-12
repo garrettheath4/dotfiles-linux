@@ -72,6 +72,8 @@ vim +PluginInstall +qall
 
 # Configure Git
 git config --global push.default simple
+git config --global pull.rebase false
+git config --global init.defaultBranch main
 git config --global diff.tool vimdiff
 git config --global color.ui auto
 if [[ $(git config --global user.name) != Garrett* ]]; then
