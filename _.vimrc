@@ -1,9 +1,20 @@
-" VUNDLE PLUGIN MANAGER START "
+" Note: This .vimrc file uses Vim folding. Toggle a fold with `za`.
+
+"*****************************************************************************
+"{{{1 VUNDLE PLUGIN MANAGER BEGIN
+"*****************************************************************************
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible              " be iMproved, required
 filetype off                  " required
+
+let vundle_exists=expand('~/.vim/bundle/Vundle.vim')
+
+if !isdirectory(vundle_exists)
+  echoerr "You have to first install Vundle yourself! https://github.com/VundleVim/Vundle.vim"
+  execute "q!"
+endif
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -11,38 +22,62 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+"*****************************************************************************
+"{{{2 Vundle install plugins begin
+
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" List Vundle plugin packages here
+"-----------------------------------------------------------------------------
+"{{{3 Plugins suggested by https://vim-bootstrap.com/
 
-" tabular: #MakeTextTablesPrettyAgain
-Plugin 'godlygeek/tabular'
-" vim-json: #MakeJsonPrettyAgain
-Plugin 'elzr/vim-json'
-" vim-jsbeautify: #MakeJavaScriptPrettyAgain
-" Usage: :call JsBeautify()
-Plugin 'maksimr/vim-jsbeautify'
-" ale: Python linting in realtime
-Plugin 'dense-analysis/ale'
-" xml.vim: #MakeXmlPrettyAgain
-Plugin 'othree/xml.vim'
-" AnsiEsc.vim: #MakeANSIEscapeSequencesPrettyAgain
-Plugin 'AnsiEsc.vim'
-" Coding language-specific plugins: vim-scala
-Plugin 'derekwyatt/vim-scala'
-" vim-fugitive: Git wrapper
-Plugin 'tpope/vim-fugitive'
-" nerdtree: Vim file browser
-Plugin 'scrooloose/nerdtree'
-" nerdtree-git-plugin: Git plugin for nerdtree (requires nerdtree obviously)
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'scrooloose/nerdtree'         " Vim file browser
+Plugin 'tpope/vim-fugitive'          " :Gcommit and other similar commands
+
+Plugin 'dense-analysis/ale'          " Asynchronous Lint Engine {{{4
+let g:ale_fix_on_save = 0            " Maybe set to 1
+let g:ale_linters_explicit = 0       " Maybe set to 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'javascriptreact': ['eslint'],
+\   'sh': ['shellcheck'],
+\}
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'javascriptreact': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma --no-semi es5'
+" }}}4
+
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'derekwyatt/vim-scala'        " Scala
+
+"-----------------------------------------------------------------------------
+"{{{3 garrettheath4 custom plugins
+
+Plugin 'jaredgorski/SpaceCamp'         " Modern Vim colorscheme
+Plugin 'machakann/vim-columnmove'      " Move cursor in vertical-only direction by M-f,t,F,T, `;`, `,`
+Plugin 'godlygeek/tabular'             " :Tabularize to align text tables
+Plugin 'elzr/vim-json'                 " JSON
+Plugin 'maksimr/vim-jsbeautify'        " :call JsBeautify()
+Plugin 'othree/xml.vim'                " XML
+Plugin 'AnsiEsc.vim'                   " :AnsiEsc to Interpret ANSI esc sequences
+Plugin 'Xuyuanp/nerdtree-git-plugin'   " Git plugin for nerdtree (nerdtree req'd)
+
+"-----------------------------------------------------------------------------
+"{{{3 OS-specific plugins
 
 if has("mac")
   " List Mac-specific Vundle plugin packages here
   Plugin 'darfink/vim-plist'
 endif
 
+"}}}2 Vundle install plugins end
+"*****************************************************************************
+
+"*****************************************************************************
+"{{{2 Vundle finish initialization
 
 " All of your Plugins must be added before the following line
 call vundle#end()             " required
@@ -59,34 +94,16 @@ filetype plugin indent on     " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" VUNDLE PLUGIN MANAGER END   "
+"}}}2 Vundle finish initialization
+"*****************************************************************************
 
-" Plugin-specific configurations
+"*****************************************************************************
+"}}}1 VUNDLE PLUGIN MANAGER END
+"*****************************************************************************
 
-" Syntastic configurations
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%=%-14.(%l,%c%V%)\ %P
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-if has("multi_byte")
-	let g:syntastic_error_symbol = "✗✗"
-	let g:syntastic_warning_symbol = "◊◊"
-else
-	let g:syntastic_error_symbol = "!>"
-	let g:syntastic_warning_symbol = "~>"
-endif
-" Check the syntax with Syntastic using the shortcut <leader>c (usually \c)
-nmap <leader>c :SyntasticCheck<CR>
-nmap <leader>s :SyntasticToggleMode<CR>
-" Disable Syntastic auto checking for Java files
-let g:syntastic_mode_map = { "mode": "active", "active_filetypes": [], "passive_filetypes": ["java"] }
-
-" General Vim configurations
+"*****************************************************************************
+"{{{1 GENERAL VIM CONFIGURATIONS
+"*****************************************************************************
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -115,11 +132,15 @@ map Q gq
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
   set guioptions-=T
-  color koehler
+  try
+    colorscheme SpaceCamp
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme koehler
+  endtry
   syntax on
   hi Error guifg=Yellow guibg=Red ctermfg=8 ctermbg=1
   set hlsearch
-  set cul
+  set cursorline
 endif
 
 " Only do this part when compiled with support for autocommands.
@@ -157,21 +178,20 @@ endif " has("autocmd")
 " Alter the sort sequence for the Netrw Directory Listing
 " g:netrw_sort_sequence = [\/]$,\<core\%(\.\d\+\)\=\>,\.c$,\.cpp$,\.h$,\.txt$,\.in$,\.out$,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$
 
-
-set tabstop=5
-set shiftwidth=5
+set tabstop=4
+set shiftwidth=4
 set autoindent
 set smartindent
 set copyindent
 set preserveindent
-set nojoinspaces    " insert 1 instead of 2 spaces b/w sentences on Ctrl+j
+set nojoinspaces    " nojoinspaces => only 1 period after spaces when reformatting
 set incsearch
-set scrolloff=2
+set scrolloff=1
 set ruler
 set exrc
 set backspace=2
 set number
-set list            " show formatting characters
+set list            " Show formatting characters
 " Show <Tab> as >-- and trailing spaces as ~
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 " Set color of eol, extends, and precedes to black (visible only when editing line)
@@ -185,3 +205,5 @@ if has("gui_running") && !exists("mvim")
   set lines=85
   set columns=85
 endif
+
+" vim: set tabstop=2 shiftwidth=2 vts=2 smarttab softtabstop=2 shiftround expandtab foldmethod=marker:
