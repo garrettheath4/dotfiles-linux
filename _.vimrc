@@ -135,12 +135,12 @@ if &t_Co > 2 || has("gui_running")
   " acceptable dark colorschemes are: industry, koehler, lunaperche, torte,
   "                                   ron, darkblue, zaibatsu, and sorbet.
   " SpaceCamp looks good in vim but not vimdiff with `cursorline` enabled.
-  colorscheme industry
-  "try
-  "  colorscheme SpaceCamp
-  "catch /^Vim\%((\a\+)\)\=:E185/
-  "  colorscheme koehler
-  "endtry
+  try
+    colorscheme industry
+    "colorscheme SpaceCamp
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme koehler
+  endtry
   syntax on
   hi Error guifg=Yellow guibg=Red ctermfg=8 ctermbg=1
   set hlsearch
@@ -210,4 +210,4 @@ if has("gui_running") && !exists("mvim")
   set columns=86
 endif
 
-" vim: set tabstop=2 shiftwidth=2 vts=2 smarttab softtabstop=2 shiftround expandtab foldmethod=marker:
+" vim: set tabstop=2 shiftwidth=2 smarttab softtabstop=2 shiftround expandtab foldmethod=marker:
