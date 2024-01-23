@@ -1,12 +1,16 @@
+# vim: set ft=sh:
+# shellcheck shell=bash
+#
 # ~/.bashrc: executed by bash(1) for non-login shells
 # (e.g. terminal emulator GUI apps or bash sub-shells)
 
 # .bashrc sourcing order of operations:
-# 1) Set PS1 bash prompt --------------------- .bash_profile (from dotfiles)
-# 2) Source system-level script (if any) ----- /etc/bashrc
-# 3) Set bash user aliases ------------------- .bashrc       (this script; from dotfiles)
-# 4) Source OS-specific script (if any) ------ .bashrc.os.*  (from dotfiles)
-# 5) Source machine-specific script (if any) - .bashrc.local
+# 1) Source machine-specific before script (if any) - .bash_profile.local.before
+# 2) Set PS1 bash prompt ---------------------------- .bash_profile (from dotfiles)
+# 3) Source system-level script (if any) ------------ /etc/bashrc
+# 4) Set bash user aliases -------------------------- .bashrc (THIS SCRIPT; from dotfiles)
+# 5) Source OS-specific script (if any) ------------- .bashrc.os.*  (from dotfiles)
+# 6) Source machine-specific script (if any) -------- .bashrc.local
 
 # If not running interactively (e.g. scp), don't do anything
 # Source; https://stackoverflow.com/a/40956958/1360295
@@ -52,25 +56,6 @@ if command -v tmux >/dev/null 2>&1; then
 		alias ssh='ssh-name'
 	fi
 fi
-
-# Source user's local definitions
-# I recommend putting a custom command prompt in .bash_profile.local
-# like: export PS1="\u@\h:\W$(tput sgr0) \$ "
-# shellcheck source=../.bash_profile.local disable=SC1091
-if [ -f ~/.bashrc.local ]; then
-	# shellcheck disable=SC1090
-	source ~/.bashrc.local
-fi
-
-# Add background color to command prompt
-# (the \[ and \] in BlueBgPS and ResetColorsPS indicate that those characters are
-# unprintable and to not include them in the string width counting)
-# Bash Prompt Customization: https://wiki.archlinux.org/index.php/Bash/Prompt_customization
-# Terminal Codes intro: http://wiki.bash-hackers.org/scripting/terminalcodes
-BlueBgPS="\\[$(tput setab 4)\\]"
-ResetColorsPS="\\[$(tput sgr0)\\]"
-export PS1="${BlueBgPS}${PS1}${ResetColorsPS}"
-export PS2="${BlueBgPS}${PS2}${ResetColorsPS}"
 
 # shellcheck source=../.git-completion.bash disable=SC1091
 test -f ~/.git-completion.bash -a -x ~/.git-completion.bash && . "$_"
@@ -152,5 +137,10 @@ ifDistIsThenSource () {
 # Bootstrap based on OS/Disto
 ifDistIsThenSource "Raspbian" ~/.bashrc.os.raspbian
 
-
-# vim: set ft=sh:
+# Source user's local definitions
+# I recommend putting a custom command prompt in .bash_profile.local
+# like: export PS1="\u@\h:\W$(tput sgr0) \$ "
+if [ -f ~/.bashrc.local ]; then
+	# shellcheck disable=SC1090
+	source ~/.bashrc.local
+fi
