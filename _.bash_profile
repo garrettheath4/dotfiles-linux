@@ -20,8 +20,8 @@ colorize_prompt() {
 	# Background (highlight) colors
 	local PSBgRed; PSBgRed="\[$(tput setab 1)\]"  # PROD
 	local PSBgGrn; PSBgGrn="\[$(tput setab 2)\]"  # DEV
-	local PSBgYel; PSBgYel="\[$(tput setab 3)\]"  # TEST
-	local PSBgBlu; PSBgBlu="\[$(tput setab 4)\]"  # STAG
+	local PSBgYel; PSBgYel="\[$(tput setab 3)\]"  # STAG
+	local PSBgBlu; PSBgBlu="\[$(tput setab 4)\]"  # TEST
 	local PSBgMag; PSBgMag="\[$(tput setab 5)\]"  # unknown
 
 	# Foreground (font) colors
@@ -35,9 +35,9 @@ colorize_prompt() {
 	if [ "$DEPLOYMENT_ENV" == dev ]; then
 		PSBgColor="$PSBgGrn"
 	elif [ "$DEPLOYMENT_ENV" == test ]; then
-		PSBgColor="$PSBgYel"
-	elif [ "$DEPLOYMENT_ENV" == stag ]; then
 		PSBgColor="$PSBgBlu"
+	elif [ "$DEPLOYMENT_ENV" == stag ]; then
+		PSBgColor="$PSBgYel"
 	elif [ "$DEPLOYMENT_ENV" == prod ]; then
 		PSBgColor="$PSBgRed"
 		PSFgColor="$PSFgWht"
