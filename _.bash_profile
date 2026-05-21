@@ -59,3 +59,8 @@ fi
 if [ -f /etc/motd ]; then
 	cat /etc/motd
 fi
+
+if [ -f ~/.bash_profile.local ]; then
+	# shellcheck disable=SC1090
+	source ~/.bash_profile.local
+fi
