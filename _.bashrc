@@ -23,6 +23,11 @@ esac
 if [ -f /etc/bashrc ]; then
 	# shellcheck disable=SC1091
 	. /etc/bashrc
+else
+	if [ -f /etc/profile ]; then
+		# shellcheck disable=SC1091
+		. /etc/profile
+	fi
 fi
 
 # Add user bin and sbin folders to PATH
